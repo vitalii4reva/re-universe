@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: First
   m_EditorClassIdentifier: 
   PlanetName: Planet1
-  water: 13
-  green: 25
-  earth: 16
-  hot: 40
+  water: 40
+  green: 60
+  earth: 80
+  hot: 10

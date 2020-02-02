@@ -28,10 +28,12 @@ public class PlanetManager : MonoBehaviour
     public float sizeSpeed;
     public GameObject curBlast;
     public float speedForce;
+    public GameObject FailPanel;
 
     public int ind;
 
     public bool sizing;
+    public bool canLoad;
     void Start()
     {
         curPlanetStats = new PlanetStats();
@@ -53,9 +55,21 @@ public class PlanetManager : MonoBehaviour
             temp.transform.localScale = startPlanet.localScale;
             temp.GetComponent<Planet>().statsPanel = statsPanel;
             StartCoroutine(MovePlanetToScreen(temp.GetComponent<Planet>(), stats[ind]));
+            canLoad = false;
+            Invoke("FailPanelInactive", 0.5f);
             ind++;
+            
+        }
+        if (ind == planets.Count && canLoad)
+        {
+            FailPanel.SetActive(true);
         }
         
+    }
+
+    void FailPanelInactive()
+    {
+        canLoad = true;
     }
 
     public IEnumerator MovePlanetToScreen(Planet planet, PlanetStats curStats)
@@ -126,8 +140,9 @@ public class PlanetManager : MonoBehaviour
             if (planet != null)
             {
                 yield return new WaitForSeconds(0.1f);
-                SpawnPlanet();
                 Destroy(planet);
+                SpawnPlanet();
+                
             }
             planetMoved = false;
         }
